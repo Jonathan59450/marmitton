@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ingredients{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4"> {# Ajout d'une div pour aligner titre et bouton #}
+        <h1>Mes ingrédients</h1>
+        {# NOUVEAU : Le bouton "Créer un ingrédient" est déplacé ici, hors du tableau #}
+        <a class="btn btn-primary" href="{{ path('app_ingredient_new') }}" role="button">Créer un ingrédient</a>
+    </div>
+
+    {# Affichage du nombre total d'ingrédients #}
+    <div class="count text-primary mb-3">
+        <small>{{ ingredients.getTotalItemCount }} ingrédients au total</small>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">{{ knp_pagination_sortable(ingredients, 'Numéro', 'i.id') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(ingredients, 'Nom', 'i.name') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(ingredients, 'Prix', 'i.price') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(ingredients, 'Date de création', 'i.createdAt') }}</th>
+                {# Décommenter pour les futures actions Modifier/Supprimer #}
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingredient in ingredients %}
+                <tr class="table-light">
+                    <th scope="row">{{ ingredient.id }}</th>
+                    <td>{{ ingredient.name }}</td>
+                    <td>{{ ingredient.price }}</td>
+                    <td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
+                    <td> {# Cette colonne est maintenant pour les actions sur l'ingrédient spécifique #}
+                        {# Ajoutez ici les liens pour Modifier et Supprimer cet ingrédient #}
+                        <a href="#" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun ingrédient trouvé.</td> {# colspan mis à jour pour 5 colonnes #}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Affichage des liens de pagination #}
+    <div class="navigation d-flex justify-content-center mt-4">
+        {{ knp_pagination_render(ingredients) }}
+    </div>
+</div>
+{% endblock %}
