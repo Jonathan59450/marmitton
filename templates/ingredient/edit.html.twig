@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un ingrédient{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Modifier l'ingrédient "{{ ingredient.name }}"</h1> {# Utilise le nom de l'ingrédient #}
+
+    {{ form_start(form) }}
+
+        {% if form_errors(form) %}
+            <div class="alert alert-danger">
+                {{ form_errors(form) }}
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            <div class="form-error">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.price) }}
+            {{ form_widget(form.price) }}
+            <div class="form-error">
+                {{ form_errors(form.price) }}
+            </div>
+        </div>
+
+        {# Vous pouvez modifier le label du bouton de soumission si vous voulez, par exemple "Modifier" au lieu de "Créer" #}
+        {{ form_row(form.submit, {'label': 'Modifier mon ingrédient'}) }} 
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}

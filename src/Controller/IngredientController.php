@@ -16,6 +16,40 @@ class IngredientController extends AbstractController
 {
     #[Route('/ingredient', name: 'app_ingredient', methods: ['GET'])]
     #[Route('/ingredient/nouveau', name: 'app_ingredient_new', methods: ['GET', 'POST'])]
+    public function edit(
+    Ingredient $ingredient, // Symfony convertit automatiquement l'ID en objet Ingredient
+    Request $request,
+    EntityManagerInterface $manager
+): Response
+{
+    // Crée le formulaire IngredientType, pré-rempli avec les données de l'ingrédient existant
+    $form = $this->createForm(IngredientType::class, $ingredient);
+
+    // Gère la soumission du formulaire
+    $form->handleRequest($request);
+
+    // Vérifie si le formulaire est soumis et valide
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Pas besoin de $form->getData() car $ingredient est directement modifié par le handleRequest
+
+        $manager->persist($ingredient); // Prépare l'enregistrement des modifications
+        $manager->flush(); // Exécute l'enregistrement
+
+        // Ajoute un message flash de succès
+        $this->addFlash(
+            'success',
+            'Votre ingrédient a été modifié avec succès !'
+        );
+
+        return $this->redirectToRoute('app_ingredient'); // Redirige vers la liste des ingrédients
+    }
+
+    // Rend le template 'ingredient/edit.html.twig' en lui passant le formulaire
+    return $this->render('ingredient/edit.html.twig', [
+        'form' => $form->createView(), // Passe la vue du formulaire au template
+        'ingredient' => $ingredient // Passe aussi l'ingrédient pour le titre par exemple
+    ]);
+}
 public function new(
     Request $request,
     EntityManagerInterface $manager
