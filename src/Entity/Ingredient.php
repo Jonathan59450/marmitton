@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 #[UniqueEntity(fields: ['name'], message: 'Cet ingrédient existe déjà.')]
@@ -16,28 +20,29 @@ class Ingredient
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    #[Assert\Length(
-        min: 2,
-        max: 50,
-        minMessage: 'Votre nom doit contenir au moins {{ limit }} caractères',
-        maxMessage: 'Votre nom ne peut pas dépasser {{ limit }} caractères',
-    )]
-    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide.')]
+    #[ORM\Column(length: 50, unique: true)]
+    #[Assert\Length(min: 2, max: 50)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
-    #[ORM\Column]
-     #[Assert\Positive(message: 'Le prix doit être un nombre positif.')] // Prix > 0 
-    #[Assert\LessThan(
-        value: 200,
-        message: 'Le prix ne peut pas excéder {{ compared_value }}.'
-    )]
-    #[Assert\NotNull(message: 'Le prix ne peut pas être nul.')] //
+    #[ORM\Column(nullable: true)]
+    #[Assert\Positive()]
+    #[Assert\LessThan(201)]
     private ?float $price = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\NotNull(message: 'La date de création ne peut pas être nulle.')]
+    #[ORM\Column]
+    #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'ingredients')]
+    private Collection $recipes;
+
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->recipes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,7 +66,7 @@ class Ingredient
         return $this->price;
     }
 
-    public function setPrice(float $price): static
+    public function setPrice(?float $price): static
     {
         $this->price = $price;
 
@@ -76,6 +81,30 @@ class Ingredient
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): static
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): static
+    {
+        $this->recipes->removeElement($recipe);
 
         return $this;
     }

@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h1 class="mb-4">Modifier l'ingrédient "{{ ingredient.name }}"</h1> {# Utilise le nom de l'ingrédient #}
+    <h1 class="mb-4">Modifier l'ingrédient "{{ ingredient.name }}"</h1> 
 
     {{ form_start(form) }}
 
@@ -30,7 +30,6 @@
             </div>
         </div>
 
-        {# Vous pouvez modifier le label du bouton de soumission si vous voulez, par exemple "Modifier" au lieu de "Créer" #}
         {{ form_row(form.submit, {'label': 'Modifier mon ingrédient'}) }} 
 
     {{ form_end(form) }}
