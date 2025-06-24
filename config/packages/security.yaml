@@ -21,6 +21,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            entry_point: form_login
             lazy: true
             provider: app_user_provider
             form_login:
@@ -30,6 +31,13 @@ security:
             logout:
                 path: app_logout
                 target: app_home # Redirige vers la page d'accueil après déconnexion
+            custom_authenticator: App\Security\LoginAuthAuthenticator
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                always_remember_me: true
 
 
     # Easy way to control access for large sections of your site

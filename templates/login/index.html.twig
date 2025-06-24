@@ -1,32 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Modifier mon profil{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
-    <h1 class="text-center">Connexion</h1>
+    <h1 class="text-center">Modification de votre profil utilisateur</h1>
 
-    {# Affichage des messages d'erreur de connexion #}
-    {% if error %}
-        <div class="alert alert-danger mx-auto mt-4" style="max-width: 500px;">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
+    {# Affichage des messages flash #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-4">
+            {{ message }}
         </div>
-    {% endif %}
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
 
-    <form action="{{ path('app_login') }}" method="post" class="mx-auto mt-4" style="max-width: 500px;">
+    {# Début du formulaire #}
+    {{ form_start(form) }}
+
         <div class="form-group">
-            <label for="username" class="form-label mt-4">Email</label>
-            <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="exemple@mail.com" required autofocus>
+            {{ form_row(form.email) }}
         </div>
-
         <div class="form-group">
-            <label for="password" class="form-label mt-4">Mot de passe</label>
-            <input type="password" id="password" name="_password" class="form-control" required>
+            {{ form_row(form.pseudo) }}
         </div>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <button type="submit" class="btn btn-primary mt-4">Se connecter</button>
-    </form>
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        </div>
+    {{ form_end(form) }} {# Fin du formulaire #}
 </div>
 {% endblock %}

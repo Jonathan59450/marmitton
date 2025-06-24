@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Modifier mon profil{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
-    <h1 class="text-center">Créer un compte</h1>
+    <h1 class="text-center">Modification de votre profil utilisateur</h1>
 
     {% for message in app.flashes('success') %}
         <div class="alert alert-success mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning mt-4">
             {{ message }}
         </div>
     {% endfor %}
@@ -17,11 +22,19 @@
         </div>
     {% endfor %}
 
+    {# Début du formulaire #}
     {{ form_start(form) }}
-    
-        <div class="d-flex justify-content-center mt-4">
-            <button type="submit" class="btn btn-primary">S'inscrire</button>
+
+        <div class="form-group">
+            {{ form_row(form.email) }}
         </div>
-    {{ form_end(form) }}
+        <div class="form-group">
+            {{ form_row(form.pseudo) }}
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        </div>
+    {{ form_end(form) }} {# Fin du formulaire #}
 </div>
 {% endblock %}
