@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UserType extends AbstractType // LE NOM DE LA CLASSE DOIT ÊTRE EXACTEMENT "UserType"
+class UserType extends AbstractType 
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/utilisateur')]
-class UserController extends AbstractController // LE NOM DE LA CLASSE DOIT ÊTRE EXACTEMENT "UserController"
+class UserController extends AbstractController 
 {
     #[Route('/edition', name: 'app_user_edit', methods: ['GET', 'POST'])]
 

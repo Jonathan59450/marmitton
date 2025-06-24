@@ -6,7 +6,6 @@
 <div class="container mt-4">
     <h1 class="text-center">Modification de votre profil utilisateur</h1>
 
-    {# Affichage des messages flash #}
     {% for message in app.flashes('success') %}
         <div class="alert alert-success mt-4">
             {{ message }}
@@ -36,6 +35,6 @@
         <div class="d-flex justify-content-center mt-4">
             <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
         </div>
-    {{ form_end(form) }} {# Fin du formulaire #}
+    {{ form_end(form) }} 
 </div>
 {% endblock %}
