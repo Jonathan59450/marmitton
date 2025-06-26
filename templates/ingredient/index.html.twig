@@ -16,7 +16,7 @@
     <table class="table table-hover">
         <thead>
             <tr class="table-primary">
-                <th scope="col">{{ knp_pagination_sortable(ingredients, 'Numéro', 'i.id') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(ingredients, 'ID', 'i.id') }}</th>
                 <th scope="col">{{ knp_pagination_sortable(ingredients, 'Nom', 'i.name') }}</th>
                 <th scope="col">{{ knp_pagination_sortable(ingredients, 'Prix', 'i.price') }}</th>
                 <th scope="col">{{ knp_pagination_sortable(ingredients, 'Date de création', 'i.createdAt') }}</th>
@@ -44,8 +44,9 @@
         </tbody>
     </table>
 
-    <div class="navigation d-flex justify-content-center mt-4">
-        {{ knp_pagination_render(ingredients) }}
+        <div class="d-flex justify-content-center mt-4"> 
+    {{ knp_pagination_render(ingredients) }}
+</div>
     </div>
 </div>
 {% endblock %}
