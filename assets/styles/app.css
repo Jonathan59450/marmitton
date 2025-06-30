@@ -24,18 +24,20 @@ body {
   h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+    color: white;
     }
 
  p {
         font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+    color: white;
     }
 
 body {
     /* Assurez-vous que ces lignes sont bien présentes ou ajoutez-les */
     font-family: 'Open Sans', sans-serif;
     /* Ajoutez ou modifiez les lignes suivantes pour l'arrière-plan */
-    background-image: url('../img/téléchargement.png'); /* Chemin relatif depuis app.css */
+    background-image: url('../img/Marmitton01.png'); /* Chemin relatif depuis app.css */
     background-size: cover; /* L'image couvrira toute la zone, sans être coupée */
     background-position: center center; /* Centre l'image */
     background-repeat: no-repeat; /* Empêche la répétition de l'image */
