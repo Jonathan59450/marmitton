@@ -1,10 +1,5 @@
-// Importe la fonction startStimulusApp du bon paquet npm
-import { startStimulusApp } from '@symfony/stimulus-bridge'; // <-- CORRIGÉ ICI
+import { startStimulusApp } from '@symfony/stimulus-bundle';
 
-// Initialise l'application Stimulus
 const app = startStimulusApp();
-
-// Enregistrez ici tous les contrôleurs personnalisés ou tiers
-// Par exemple :
-// import MyController from './controllers/MyController';
-// app.register('my-controller', MyController);
+// register any custom, 3rd party controllers here
+// app.register('some_controller_name', SomeImportedController);
